@@ -1,0 +1,88 @@
+name: clone repositories
+
+on:
+  workflow_dispatch:
+    inputs:
+          logLevel:
+            description: 'Log level'     
+            required: true
+            default: 'warning'
+          tags:
+            description: 'build scenario tag'  
+            
+permissions: write-all
+
+jobs:
+  clone-submodules:
+    runs-on: ubuntu-latest
+   
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          repository: MichaelGrafnetter/DSInternals
+          path: DSInternals
+      - uses: actions/checkout@v2
+      - run: |
+          git submodule add https://github.com/MichaelGrafnetter/DSInternals.git
+        continue-on-error: true    
+      
+      - uses: actions/checkout@v2
+        with:
+          repository: sqlmapproject/sqlmap
+          path: sqlmap
+      - uses: actions/checkout@v2
+      - run: |   
+          git submodule add https://github.com/sqlmapproject/sqlmap.git
+        continue-on-error: true     
+      
+      - uses: actions/checkout@v2
+        with:
+          repository: SnaffCon/Snaffler
+          path: Snaffler
+      - uses: actions/checkout@v2
+      - run: |   
+          git submodule add https://github.com/SnaffCon/Snaffler.git
+        continue-on-error: true
+        
+      - uses: actions/checkout@v2
+        with:
+          repository: bitsadmin/wesng
+          path: wesng    
+      - uses: actions/checkout@v2
+      - run: |    
+          git submodule add https://github.com/bitsadmin/wesng.git
+        continue-on-error: true   
+            
+      - uses: actions/checkout@v2
+        with:
+          repository: wagga40/Zircolite
+          path: Zircolite
+      - uses: actions/checkout@v2
+      - run: |     
+          git submodule add https://github.com/wagga40/Zircolite.git
+        continue-on-error: true   
+      
+      - uses: actions/checkout@v2
+        with:
+          repository: VirusTotal/yara
+          path: yara
+      - uses: actions/checkout@v2
+      - run: |       
+          git submodule add https://github.com/VirusTotal/yara.git
+        continue-on-error: true     
+      
+      - uses: actions/checkout@v2
+        with:
+          repository: 0x6d69636b/windows_hardening
+          path: windows_hardening
+      - uses: actions/checkout@v2
+      - run: |   
+          git submodule add https://github.com/0x6d69636b/windows_hardening.git
+        continue-on-error: true
+        
+      - uses: actions/checkout@v2
+      - run: |
+          git config user.name liranpi2
+          git add .
+          git commit -m "add submodule"
+          git push
